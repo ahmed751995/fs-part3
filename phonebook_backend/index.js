@@ -1,7 +1,14 @@
 const express = require("express");
-
+const morgan = require("morgan");
 const app = express();
 app.use(express.json());
+
+morgan.token('data', function(req, resp) {
+  return JSON.stringify(req.body);
+});
+
+const customMorgan = morgan(':method :url :status :res[content-length] - :response-time ms - :data');
+app.use(customMorgan);
 
 let phonebook = [
   {
@@ -25,6 +32,7 @@ let phonebook = [
     number: "39-23-6423122",
   },
 ];
+
 
 app.get("/info", (request, response) => {
   response.send(`<p>Phonebook has info for ${phonebook.length} people</p>
