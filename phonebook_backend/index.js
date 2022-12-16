@@ -1,14 +1,16 @@
 const express = require("express");
-const morgan = require("morgan");
+// const morgan = require("morgan");
+const cors = require('cors');
 const app = express();
 app.use(express.json());
+app.use(express.static('build'));
+app.use(cors());
+// morgan.token('data', function(req, resp) {
+//   return JSON.stringify(req.body);
+// });
 
-morgan.token('data', function(req, resp) {
-  return JSON.stringify(req.body);
-});
-
-const customMorgan = morgan(':method :url :status :res[content-length] - :response-time ms - :data');
-app.use(customMorgan);
+// const customMorgan = morgan(':method :url :status :res[content-length] - :response-time ms - :data');
+// app.use(customMorgan);
 
 let phonebook = [
   {
@@ -85,7 +87,7 @@ app.post("/api/persons", (request, response) => {
   }
 });
 
-const PORT = 3001;
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`server is running on port ${PORT}`);
 });
