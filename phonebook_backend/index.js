@@ -13,9 +13,9 @@ app.use(cors());
 const Person = require('./models/phonebook');
 
 app.get('/info', (request, response, next) => {
-  Person.find({})
-    .then((persons) =>
-      response.send(`<p>Phonebook has info for ${persons.length} people</p>
+  Person.count()
+    .then((personCount) =>
+      response.send(`<p>Phonebook has info for ${personCount} people</p>
 <p>${new Date().toString()}</p>`)
     )
     .catch((error) => next(error));
