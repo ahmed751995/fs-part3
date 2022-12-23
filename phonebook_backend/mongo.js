@@ -1,8 +1,8 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 
 if(process.argv.length < 3) {
-  console.log("enter password");
+  console.log('enter password');
   process.exit(1);
 }
 
@@ -25,14 +25,14 @@ if(process.argv.length < 5) {
     result.forEach(person => console.log(`${person.name} : ${person.number}`));
   }).then(() => mongoose.connection.close());
 } else {
-  console.log("adding person");
+  console.log('adding person');
   const newPerson = new Person({
     name: process.argv[3],
     number: process.argv[4]
   });
   newPerson.save().then(() =>
-    {
-      console.log("person added");
-      mongoose.connection.close();
-    });
+  {
+    console.log('person added');
+    mongoose.connection.close();
+  });
 }
